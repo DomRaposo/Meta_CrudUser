@@ -1,0 +1,245 @@
+/* tasks.css - Estilos modernos para tela de tarefas */
+.tasks-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #232946 0%, #3d246c 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 0;
+}
+.tasks-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  width: 100%;
+}
+.tasks-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0e7490;
+  margin-bottom: 1rem;
+}
+.tasks-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.task-item:last-child {
+  border-bottom: none;
+}
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.task-btn {
+  font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  color: #fff !important;
+}
+.task-btn.edit {
+  background: linear-gradient(135deg, #fde68a 0%, #fbbf24 100%) !important;
+  color: #b45309 !important;
+}
+.task-btn.edit:hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e42 100%) !important;
+  color: #a16207 !important;
+  box-shadow: 0 6px 20px rgba(251,191,36,0.25);
+}
+.task-btn.delete {
+  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%) !important;
+}
+.task-btn.delete:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%) !important;
+  box-shadow: 0 6px 20px rgba(239,68,68,0.25);
+}
+/* Linhas alternadas na tabela */
+.tasks-table tbody tr:nth-child(even) {
+  background: #f6f8fa;
+}
+.tasks-table tbody tr {
+  transition: background 0.2s;
+}
+.tasks-table tbody tr:hover {
+  background: #e0e7ff;
+}
+
+/* Botões de ação */
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+.action-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 7px;
+  background: #f3f4f6;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, box-shadow 0.18s;
+}
+.action-btn svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+.action-complete {
+  background: #d1fae5;
+  color: #059669;
+}
+.action-complete:hover {
+  background: #6ee7b7;
+}
+.action-remove {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.action-remove:hover {
+  background: #fca5a5;
+}
+.btn-action {
+  background: #fff;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 6px;
+  transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-action:hover {
+  box-shadow: 0 4px 16px rgba(59,130,246,0.10);
+  background: #f1f5f9;
+  border-color: #a5b4fc;
+}
+.btn-complete svg {
+  stroke: #22c55e !important;
+}
+.btn-remove svg {
+  stroke: #ef4444 !important;
+}
+.btn-action svg {
+  width: 28px !important;
+  height: 28px !important;
+  display: block;
+}
+
+/* Card principal */
+.tasks-list-container {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(59,130,246,0.10);
+  overflow: hidden;
+  margin: 32px 0;
+  padding-bottom: 16px;
+}
+
+/* Formulário */
+.add-task-form {
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.add-task-input, .add-task-btn {
+  border-radius: 0.75rem;
+  font-size: 1rem;
+}
+.add-task-btn {
+  padding: 0.75rem 2rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.add-task-btn:hover {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  box-shadow: 0 4px 16px rgba(14,165,233,0.15);
+}
+.tasks-header-bar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-right: 20px;
+}
+.tasks-header-btn {
+  background: linear-gradient(135deg, #6c63ff 0%, #7f53ac 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.3rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.tasks-header-btn.logout {
+  background: linear-gradient(135deg, #6c63ff 0%, #7f53ac 100%);
+  color: #fff;
+}
+.tasks-header-btn:hover,
+.tasks-header-btn.logout:hover {
+  box-shadow: 0 4px 16px rgba(124,60,237,0.12);
+  filter: brightness(1.08);
+}
+.tasks-header-content {
+  width: 100%;
+  background: linear-gradient(90deg, #6c63ff 0%, #7f53ac 100%);
+  border-radius: 1.2rem;
+  margin-bottom: 2rem;
+  padding: 1.2rem 2.5rem 1.2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 16px rgba(124,60,237,0.08);
+}
+.tasks-header-title {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.tasks-header-user {
+  color: #e0e6ff;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+/* Unificação total dos botões principais */
+.add-task-btn, .tasks-header-btn, .tasks-header-btn.logout {
+  background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%) !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.add-task-btn:hover, .tasks-header-btn:hover, .tasks-header-btn.logout:hover {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%) !important;
+  box-shadow: 0 4px 16px rgba(14,165,233,0.15);
+}
+
+/* Remover gradientes roxos antigos */
+.tasks-header-btn, .tasks-header-btn.logout {
+  background: none !important;
+} 

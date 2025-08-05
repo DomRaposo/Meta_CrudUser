@@ -1,0 +1,5 @@
+róximos passos sugeridos:
+Verifique se a rota de login no seu arquivo de rotas (src/router/index.js) está apontando para o componente correto (views/Login.vue).
+Se quiser, posso ajudar a criar um componente ainda mais enxuto, separando o modal de registro em um componente próprio.
+Se precisar de mais alguma separação (por exemplo, transformar o modal de registro em um componente separado) ou quiser revisar as rotas, me avise!
+Se quiser ver como ficou algum arquivo, é só pedir.

@@ -1,0 +1,48 @@
+# Laravel
+/vendor
+/storage/*.key
+/storage/logs
+/public/storage
+/public/build
+/public/hot
+.phpunit.cache
+.env
+.env.*
+.env.backup
+.env.production
+Homestead.json
+Homestead.yaml
+auth.json
+
+# Node/Vue (frontend)
+/node_modules
+PerfilUser-FrontEnd/perfil-user-front/node_modules
+PerfilUser-FrontEnd/perfil-user-front/dist
+PerfilUser-FrontEnd/perfil-user-front/.env.local
+PerfilUser-FrontEnd/perfil-user-front/.env.*.local
+PerfilUser-FrontEnd/perfil-user-front/npm-debug.log*
+PerfilUser-FrontEnd/perfil-user-front/yarn-debug.log*
+PerfilUser-FrontEnd/perfil-user-front/yarn-error.log*
+PerfilUser-FrontEnd/perfil-user-front/pnpm-debug.log*
+
+# IDEs e arquivos temporários
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# Docker
+/db_data
+*.pid
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Outros
+/.fleet
