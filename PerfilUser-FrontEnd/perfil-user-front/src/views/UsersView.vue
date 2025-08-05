@@ -144,17 +144,35 @@ export default {
     }
     async function fetchUsers() {
       try {
+        console.log('Buscando lista de usuários...');
         const res = await UserService.getUsers();
+        console.log('Resposta da API:', res);
+        
         users.value = Array.isArray(res) ? res : (res.data || []);
+        console.log('Lista de usuários atualizada:', users.value.length, 'usuários');
+        
         showError.value = false;
       } catch (e) {
+        console.error('Erro ao buscar usuários:', e);
         showError.value = true;
       }
     }
     async function removeUser(id) {
       if (confirm('Tem certeza que deseja remover este usuário?')) {
-        await UserService.deleteUser(id);
-        fetchUsers();
+        try {
+          console.log('Removendo usuário:', id);
+          await UserService.deleteUser(id);
+          console.log('Usuário removido com sucesso');
+          
+          // Recarregar lista completa para garantir sincronização
+          console.log('Recarregando lista de usuários...');
+          await fetchUsers();
+          
+          console.log('Página atualizada com sucesso!');
+        } catch (e) {
+          console.error('Erro ao remover usuário:', e);
+          alert('Erro ao remover usuário: ' + (e.response?.data?.message || e.message));
+        }
       }
     }
     function editUser() {
@@ -248,17 +266,30 @@ export default {
           role: userData.role
         };
         if (userData.password) payload.password = userData.password;
+        
+        console.log('Atualizando usuário:', userData.id, payload);
         const updatedUser = await UserService.updateUser(userData.id, payload);
+        console.log('Usuário atualizado com sucesso:', updatedUser);
 
         // Atualize a lista local de usuários reativamente
         const idx = users.value.findIndex(u => u.id === userData.id);
         if (idx !== -1) {
-          users.value.splice(idx, 1, updatedUser.data.user || { ...userData, ...payload });
+          // Atualizar com os dados retornados da API
+          const updatedUserData = updatedUser.data?.user || updatedUser.user || { ...userData, ...payload };
+          users.value.splice(idx, 1, updatedUserData);
+          console.log('Lista de usuários atualizada localmente');
         }
 
+        // Fechar modal
         editModalOpen.value = false;
-        // Não precisa de await fetchUsers() se atualizar localmente
+        
+        // Recarregar lista completa para garantir sincronização
+        console.log('Recarregando lista de usuários...');
+        await fetchUsers();
+        
+        console.log('Página atualizada com sucesso!');
       } catch (e) {
+        console.error('Erro ao atualizar usuário:', e);
         editError.value = e.response?.data?.message || 'Erro ao atualizar usuário';
       }
     }
@@ -302,10 +333,21 @@ export default {
           password: userData.password || '',
           role: userData.role || 'user'
         };
-        await UserService.createUser(payload);
+        
+        console.log('Criando novo usuário:', payload);
+        const newUser = await UserService.createUser(payload);
+        console.log('Usuário criado com sucesso:', newUser);
+        
+        // Fechar modal
         showUserFormModal.value = false;
+        
+        // Recarregar lista completa para garantir sincronização
+        console.log('Recarregando lista de usuários...');
         await fetchUsers();
+        
+        console.log('Página atualizada com sucesso!');
       } catch (e) {
+        console.error('Erro ao criar usuário:', e);
         userFormError.value = e.response?.data?.message || 'Erro ao cadastrar usuário';
       } finally {
         userFormLoading.value = false;
