@@ -6,7 +6,6 @@
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.x-green.svg)](https://vuejs.org)
 [![MongoDB](https://img.shields.io/badge/MongoDB-6.x-brightgreen.svg)](https://mongodb.com)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://docker.com)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## 📋 Índice
 
@@ -478,15 +477,11 @@ docker-compose exec backend bash   # Acessar container backend
 - Documente mudanças na API
 - Use commits semânticos
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## 📞 Suporte
 
-- **Issues**: [GitHub Issues](https://github.com/seu-usuario/meta-cruduser/issues)
 - **Documentação**: Este README
-- **Email**: seu-email@example.com
+- **Email**: felipe_ol@outlook.com
 
 ---
 
