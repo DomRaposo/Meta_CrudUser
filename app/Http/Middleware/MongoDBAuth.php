@@ -37,7 +37,15 @@ class MongoDBAuth
             return response()->json(['message' => 'Token inválido'], 401);
         }
 
-        $user = User::find($tokenModel->tokenable_id);
+        // Converter string para ObjectId se necessário
+        $userId = $tokenModel->tokenable_id;
+        if (is_string($userId) && !preg_match('/^[0-9a-fA-F]{24}$/', $userId)) {
+            // Se não é um ObjectId válido, tentar buscar como string
+            $user = User::where('_id', $userId)->first();
+        } else {
+            $user = User::find($userId);
+        }
+        
         \Log::info('MongoDBAuth: Usuário encontrado', [
             'found' => $user ? 'sim' : 'não',
             'user_id' => $tokenModel->tokenable_id,

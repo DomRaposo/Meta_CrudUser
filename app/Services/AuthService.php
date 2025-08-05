@@ -62,7 +62,8 @@ class AuthService
         $token->token = hash('sha256', $plainTextToken = Str::random(40));
         $token->abilities = ['*'];
         $token->tokenable_type = get_class($user);
-        $token->tokenable_id = $user->_id;
+        // Garantir que o tokenable_id seja armazenado como string para compatibilidade
+        $token->tokenable_id = (string) $user->_id;
         $token->save();
 
         // Retornar token no formato ID|TOKEN como o Laravel Sanctum espera
