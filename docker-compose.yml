@@ -5,51 +5,85 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
-    container_name: petiko_backend
+    container_name: meta_cruduser_backend
     restart: unless-stopped
     working_dir: /var/www
     volumes:
       - ./:/var/www
+      - ./storage/logs:/var/www/storage/logs
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - mongodb
     environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=petiko
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
+      - APP_NAME=Meta_CrudUser
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8000
+      - DB_CONNECTION=mongodb
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+      - DB_DATABASE=to_do
+      - DB_USERNAME=
+      - DB_PASSWORD=
+      - LOG_CHANNEL=stack
+      - LOG_LEVEL=debug
+    networks:
+      - meta_cruduser_network
 
   frontend:
     build:
       context: ./PerfilUser-FrontEnd/perfil-user-front
       dockerfile: Dockerfile.frontend
-    container_name: petiko_frontend
+    container_name: meta_cruduser_frontend
     restart: unless-stopped
     working_dir: /app
     volumes:
       - ./PerfilUser-FrontEnd/perfil-user-front:/app
       - /app/node_modules
     ports:
-      - "8080:8080"
+      - "5173:5173"
     environment:
       - CHOKIDAR_USEPOLLING=true
-    command: npm run serve
+      - NODE_ENV=development
+    command: npm run dev
+    networks:
+      - meta_cruduser_network
 
-  db:
-    image: mysql:8.0
-    container_name: petiko_db
+  mongodb:
+    image: mongo:6.0
+    container_name: meta_cruduser_mongodb
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: petiko
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_PASSWORD: root
-      MYSQL_USER: root
+      MONGO_INITDB_DATABASE: to_do
     ports:
-      - "3306:3306"
+      - "27017:27017"
     volumes:
-      - db_data:/var/lib/mysql
+      - mongodb_data:/data/db
+      - ./docker/mongo-init:/docker-entrypoint-initdb.d
+    networks:
+      - meta_cruduser_network
+
+  mongo-express:
+    image: mongo-express:1.0.0
+    container_name: meta_cruduser_mongo_express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123
+    depends_on:
+      - mongodb
+    networks:
+      - meta_cruduser_network
 
 volumes:
-  db_data: 
+  mongodb_data:
+
+networks:
+  meta_cruduser_network:
+    driver: bridge 

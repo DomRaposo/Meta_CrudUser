@@ -1,0 +1,54 @@
+# Arquivos e diretórios ignorados no build Docker
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Node.js (frontend)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Laravel
+/vendor
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+
+# IDEs
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Logs
+*.log
+
+# Cache
+.cache
+.parcel-cache
+
+# Build
+/dist
+/build 
