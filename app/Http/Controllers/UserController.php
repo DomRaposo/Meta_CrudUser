@@ -19,13 +19,7 @@ class UserController extends Controller
 
     public function index()
     {
-        try {
-            $users = $this->userService->getAllUsers();
-            return response()->json($users);
-        } catch (\Exception $e) {
-            \Log::error('Erro no index de usuários: ' . $e->getMessage());
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+        return response()->json($this->userService->getAllUsers());
     }
 
     public function store(Request $request)

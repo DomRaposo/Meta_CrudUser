@@ -30,9 +30,5 @@ Route::middleware('auth.mongodb')->group(function () {
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
-    Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index']);
-    Route::get('/tasks/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
-    Route::post('/tasks', [\App\Http\Controllers\TaskController::class, 'store']);
-    Route::put('/tasks/{id}', [\App\Http\Controllers\TaskController::class, 'update']);
-    Route::delete('/tasks/{id}', [\App\Http\Controllers\TaskController::class, 'destroy']);
+
 });

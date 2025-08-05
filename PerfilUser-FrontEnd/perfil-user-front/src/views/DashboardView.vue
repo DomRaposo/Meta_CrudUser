@@ -7,7 +7,7 @@
     <transition name="fade">
       <div v-if="showSuccess" class="dashboard-success-pop">Login realizado com sucesso.</div>
     </transition>
-    <Dashboard :user="user" @goTasks="goTasks" @logout="logout" @manageUsers="goUsers" />
+    <Dashboard :user="user" @logout="logout" @manageUsers="goUsers" />
   </div>
 </template>
 
@@ -28,9 +28,7 @@ export default {
     const route = useRoute();
     const showSuccess = ref(false);
     const nomeUsuario = computed(() => user?.fullName || user?.name || 'Usuário');
-    function goTasks() {
-      router.push('/tasks');
-    }
+    
     function logout() {
       doLogout()
         .catch(() => {})
@@ -50,7 +48,7 @@ export default {
         router.replace({ query: { ...route.query, loginSuccess: undefined } });
       }
     });
-    return { user, goTasks, logout, showSuccess, nomeUsuario, goUsers };
+    return { user, logout, showSuccess, nomeUsuario, goUsers };
   }
 };
 </script> 

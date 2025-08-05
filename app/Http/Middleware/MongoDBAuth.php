@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Models\PersonalAccessToken;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class MongoDBAuth
 {
@@ -50,9 +51,13 @@ class MongoDBAuth
             return response()->json(['message' => 'Usuário não encontrado'], 401);
         }
 
+        // Configurar o usuário no request
         $request->setUserResolver(function () use ($user) {
             return $user;
         });
+
+        // Configurar o usuário no Auth facade
+        Auth::setUser($user);
 
         \Log::info('MongoDBAuth: Autenticação bem-sucedida', [
             'user_id' => $user->_id,

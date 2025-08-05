@@ -25,67 +25,69 @@ abstract class MongoModel extends Model
         $data['created_at'] = now();
         $data['updated_at'] = now();
         
-        $result = DB::connection('mongodb')->collection($model->collection)->insert($data);
-        
+        $result = DB::connection('mongodb')->table($model->collection)->insertGetId($data);
         if ($result) {
-            $model->setRawAttributes($result);
+            $model->setAttribute('_id', $result);
+            $model->id = (string)$result; // sempre string
             return $model;
         }
-        
         return null;
     }
     
     public static function find($id)
     {
         $model = new static();
-        $result = DB::connection('mongodb')->collection($model->collection)->find($id);
-        
+        // Sempre buscar por _id (MongoDB)
+        $result = DB::connection('mongodb')->table($model->collection)->where('_id', $id)->first();
         if ($result) {
-            $model->setRawAttributes($result);
+            $model->setRawAttributes((array)$result);
+            $model->id = isset($model->attributes['_id']) ? (string)$model->attributes['_id'] : null;
             return $model;
         }
-        
         return null;
     }
     
-    public static function all()
+    public static function all($columns = ['*'])
     {
         $model = new static();
-        $results = DB::connection('mongodb')->collection($model->collection)->find();
-        
+        $results = DB::connection('mongodb')->table($model->collection)->get($columns);
         $models = [];
         foreach ($results as $result) {
             $newModel = new static();
-            $newModel->setRawAttributes($result);
+            $newModel->setRawAttributes((array)$result);
+            $newModel->id = isset($newModel->attributes['_id']) ? (string)$newModel->attributes['_id'] : null;
             $models[] = $newModel;
         }
-        
         return collect($models);
     }
     
-    public function update(array $attributes = [])
+    public function update(array $attributes = [], array $options = [])
     {
         $this->fill($attributes);
         $data = $this->getAttributes();
         $data['updated_at'] = now();
-        
-        $result = DB::connection('mongodb')->collection($this->collection)->update($this->getKey(), $data);
-        
+        $result = DB::connection('mongodb')->table($this->collection)->where('_id', $this->getKey())->update($data);
         if ($result) {
-            $this->setRawAttributes($result);
+            $this->setRawAttributes($data);
             return $this;
         }
-        
         return false;
     }
     
     public function delete()
     {
-        return DB::connection('mongodb')->collection($this->collection)->delete($this->getKey());
+        return DB::connection('mongodb')->table($this->collection)->where('_id', $this->getKey())->delete();
     }
     
     public function getKey()
     {
-        return $this->attributes['_id'] ?? $this->attributes['id'] ?? null;
+        // Sempre retornar _id (MongoDB)
+        return $this->attributes['_id'] ?? null;
+    }
+    
+    // Forçar o uso da conexão MongoDB
+    public function getConnectionName()
+    {
+        return 'mongodb';
     }
 } 

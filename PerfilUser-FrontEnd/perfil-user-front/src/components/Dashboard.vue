@@ -6,7 +6,7 @@
     </div>
     <div class="dashboard-actions">
       <button class="dashboard-action-btn" @click="$emit('manageUsers')">Gerenciar Usuários</button>
-      <button class="dashboard-action-btn" @click="$emit('goTasks')">Ver Tarefas</button>
+      
       <button class="dashboard-action-btn" @click="$emit('logout')">Logout</button>
     </div>
   </div>
